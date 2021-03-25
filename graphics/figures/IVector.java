@@ -1,25 +1,25 @@
 package graphics.figures;
 
-public interface IVector {
+public interface IVector {//Vector1 pass
+    //TODO Vector2, Vector3, Quaternion
+    
     public void scale(double ratio);
 
     public void set(double[] p1, double[] p2);
 
     public double[] get();
 
-    public void add(IVector v1, IVector v2);
+    public void add(IVector v);
 
-    public void substract(IVector v1, IVector v2);
+    public void subtract(IVector v);
 
-    public void dotProduct(IVector v1, IVector v2);
+    public double getNorm();
 
-    public void crossProduct(IVector v1, IVector v2);
+    public double getNormSq();
 
-    public void getNorm(IVector v);
+    public IVector getConjugate();
 
-    public void getConjugate(IVector v);
-
-    public void getNormSq(IVector v);
-
+    public void neg();
+    
     public String toString();
 }

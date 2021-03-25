@@ -1,5 +1,12 @@
 package graphics.figures;
 
+/**
+ * I-can-do-whatever-I-want-and-get-away-with-it
+ * 
+ * @author Favorite / 13
+ * @version %I%, %G%
+ *
+ */
 public class Vector1 implements IVector {
 
     private double x1;
@@ -20,15 +27,15 @@ public class Vector1 implements IVector {
 
     @Override
     public void scale(double ratio) {
-	this.x2 = x2 * ratio;
-	return;
+	this.x2 -= this.x1;
+	this.x2 *= ratio;
+	this.x2 += this.x1;
     }
 
     @Override
-    public void set(double[] p1, double[] p2) {
-	this.x1 = p1[0];
-	this.x2 = p2[0];
-
+    public void set(double[] x1, double[] x2) {
+	this.x1 = x1[0];
+	this.x2 = x2[0];
     }
 
     @Override
@@ -36,45 +43,47 @@ public class Vector1 implements IVector {
 	return new double[] { this.x1, this.x2 };
     }
 
-    @Override
-    public void add(IVector v1, IVector v2) {
-	// TODO Auto-generated method stub
-
+    public static IVector add(IVector v1, IVector v2) {
+	double resLen = v1.get()[1] - v1.get()[0] + v2.get()[1] - v2.get()[0];
+	return new Vector1(v1.get()[0], v1.get()[0] + resLen);
     }
 
     @Override
-    public void substract(IVector v1, IVector v2) {
-	// TODO Auto-generated method stub
+    public void add(IVector v) {
+	this.x1 = add(this, v).get()[0];
+	this.x2 = add(this, v).get()[1];
+    }
 
+    public static IVector subtract(IVector v1, IVector v2) {
+	return add(v1, Vector1.neg(v2));
     }
 
     @Override
-    public void dotProduct(IVector v1, IVector v2) {
-	// TODO Auto-generated method stub
+    public void subtract(IVector v) {
+	add(neg(v));
+    }
 
+    public static double dotProduct(IVector v1, IVector v2) {
+	return v1.getNorm() * v2.getNorm();
+    }
+
+    public static IVector crossProduct(IVector v1, IVector v2) {
+	return new Vector1(0, 0);
     }
 
     @Override
-    public void crossProduct(IVector v1, IVector v2) {
-	// TODO Auto-generated method stub
-
+    public double getNorm() {
+	return Math.abs(this.x1 - this.x2);
     }
 
     @Override
-    public void getNorm(IVector v) {
-	// TODO Auto-generated method stub
-
+    public IVector getConjugate() {
+	return new Vector1(this.get()[0], this.get()[1]);
     }
 
     @Override
-    public void getConjugate(IVector v) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void getNormSq(IVector v) {
-	// TODO Auto-generated method stub
+    public double getNormSq() {
+	return (this.x1 - this.x2) * (this.x1 - this.x2);
 
     }
 
@@ -82,6 +91,16 @@ public class Vector1 implements IVector {
     public String toString() {
 
 	return "[" + this.x1 + ";" + this.x2 + "]";
+    }
+
+    public static IVector neg(IVector v) {
+	return new Vector1(-v.get()[0], -v.get()[1]);
+    }
+
+    @Override
+    public void neg() {
+	this.x1 = -this.x1;
+	this.x2 = -this.x2;
     }
 
 }
