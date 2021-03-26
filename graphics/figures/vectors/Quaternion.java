@@ -1,4 +1,4 @@
-package graphics.figures;
+package graphics.figures.vectors;
 
 /**
  * @version %I%, %G%

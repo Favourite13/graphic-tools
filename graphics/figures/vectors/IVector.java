@@ -1,13 +1,15 @@
-package graphics.figures;
+package graphics.figures.vectors;
+
+import graphics.figures.points.IPoint;
 
 public interface IVector {//Vector1 pass
     //TODO Vector2, Vector3, Quaternion
     
     public void scale(double ratio);
 
-    public void set(double[] p1, double[] p2);
+    public void set(IPoint p1, IPoint p2);
 
-    public double[] get();
+    public IPoint[] get();
 
     public void add(IVector v);
 
