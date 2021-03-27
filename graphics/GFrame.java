@@ -12,7 +12,7 @@ public class GFrame extends JFrame {
      */
     private static final long serialVersionUID = 1L;
     public final String TITLE = "in particular";
-    private final static Image IMAGE = new ImageIcon(Window.class.getResource("../icon.png")).getImage();
+    private final static Image IMAGE = new ImageIcon(GFrame.class.getResource("../icon.png")).getImage();
     
     public GFrame() {
 	this.add(new GPanel());

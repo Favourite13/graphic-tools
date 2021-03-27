@@ -110,21 +110,14 @@ public class Vector2 {
 	this.p2.neg();
     }
 
-    public void revolve(Point2 p, double rad) {
-	double theta, distance, x1, y1, x2, y2;
-	x1 = this.getStart().x - p.x;
-	y1 = this.getStart().y - p.y;
-	x2 = this.getEnd().x - p.x;
-	y2 = this.getEnd().y - p.y;
-	theta = Math.atan2(y1, x1) + rad;
-	distance = Math.sqrt(x1 * x1 + y1 * y1);
-	this.getStart().x = distance * Math.cos(theta) + p.x;
-	this.getStart().y = distance * Math.sin(theta) + p.y;
-
-	theta = Math.atan2(y2, x2) + rad;
-	distance = Math.sqrt(x2 * x2 + y2 * y2);
-	this.getEnd().x = distance * Math.cos(theta) + p.x;
-	this.getEnd().y = distance * Math.sin(theta) + p.y;
+    public void revolve(Point2 p, double rad) {	
+	this.getStart().revolve(p, rad);
+	this.getEnd().revolve(p, rad);
+    }
+    
+    public void revolveC(Point2 p, double rad) {
+	this.getStart().revolveC(p, rad);
+	this.getEnd().revolveC(p, rad);	
     }
 
     @Override
