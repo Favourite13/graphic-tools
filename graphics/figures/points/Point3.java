@@ -3,7 +3,7 @@ package graphics.figures.points;
 /**
  * I-can-do-whatever-I-want-and-get-away-with-it
  * <li>{@linkplain #getNeg() getNeg}
- * <li>{@linkplain #revolve(Vector3, double) revolve}
+ * <li>{@linkplain #revolve(Vector3, double) revolve} //TODO
  * <li>{@linkplain #toString() toString}
  * 
  * @author Favourite / 13
@@ -11,6 +11,8 @@ package graphics.figures.points;
  *
  */
 public class Point3 {
+    private final double CMP_EPSILON = 1E-6;
+    private final int ACC = 100;
     /**
      * Location <b>x</b> of the Point3.
      */
@@ -76,6 +78,24 @@ public class Point3 {
      */
     @Override
     public String toString() {
-	return "(" + x + ";" + y + ";" + z + ")";
+	String acc = "#";
+	int temp = 1;
+	while ((temp * this.CMP_EPSILON) < 1) {
+	    temp *= this.ACC;
+	    acc += "#";
+	}
+	java.text.NumberFormat nf = new java.text.DecimalFormat("0." + acc + "E0");
+	String xSign = this.x < 0 ? "-" : "";
+	double xAbs = Math.abs(this.x);
+	String ySign = this.y < 0 ? "-" : "";
+	double yAbs = Math.abs(this.y);
+	String zSign = this.y < 0 ? "-" : "";
+	double zAbs = Math.abs(this.y);
+
+	String xStr = nf.format(xAbs).replaceFirst("E", "*10^(") + ")";
+	String yStr = nf.format(yAbs).replaceFirst("E", "*10^(") + ")";
+	String zStr = nf.format(zAbs).replaceFirst("E", "*10^(") + ")";
+
+	return "(" + xSign + xStr + ";" + ySign + yStr + ";"+ zSign + zStr + ")";
     }
 }

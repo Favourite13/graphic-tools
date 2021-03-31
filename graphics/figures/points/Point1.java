@@ -9,6 +9,8 @@ package graphics.figures.points;
  */
 
 public class Point1 {
+    private final double CMP_EPSILON = 1E-6;
+    private final int ACC = 100;
 
     /**
      * Location <b>x</b> of the Point1
@@ -61,6 +63,18 @@ public class Point1 {
      */
     @Override
     public final String toString() {
-	return "(" + x + ")";
+	String acc = "#";
+	int temp = 1;
+	while ((temp * this.CMP_EPSILON) < 1) {
+	    temp *= this.ACC;
+	    acc += "#";
+	}
+	java.text.NumberFormat nf = new java.text.DecimalFormat("0." + acc + "E0");
+	String xSign = this.x < 0 ? "-" : "";
+	double xAbs = Math.abs(this.x);
+
+	String xStr = nf.format(xAbs).replaceFirst("E", "*10^(") + ")";
+
+	return "(" + xSign + xStr + ")";
     }
 }

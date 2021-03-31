@@ -8,6 +8,8 @@ package graphics.figures.points;
  *
  */
 public class Point2 {
+    private final double CMP_EPSILON = 1E-6;
+    private final int ACC = 100;
     /**
      * Location <b>x</b> of the Point2.
      */
@@ -96,10 +98,52 @@ public class Point2 {
     }
 
     /**
+     * 
+     * @param p1
+     * @param p2
+     * @return distance between two Point2 objects
+     */
+    public final static double getDistance(Point2 p1, Point2 p2) {
+	return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
+    }
+
+    /**
+     * 
+     * @param p1
+     * @param p2
+     * @return angle between the line through two Point2 objects and the x-axis, in
+     *         radians
+     */
+    public final static double getAngle(Point2 p1, Point2 p2) {
+	return Math.atan2(p2.y - p1.y, p2.x - p1.x);
+    }
+
+    /**
      * Converts Point2 to a string format
      */
     @Override
     public final String toString() {
-	return "(" + x + ";" + y + ")";
+	String acc = "#";
+	int temp = 1;
+	while ((temp * this.CMP_EPSILON) < 1) {
+	    temp *= this.ACC;
+	    acc += "#";
+	}
+	java.text.NumberFormat nf = new java.text.DecimalFormat("0." + acc + "E0");
+	String xSign = this.x < 0 ? "-" : "";
+	double xAbs = Math.abs(this.x);
+	String ySign = this.y < 0 ? "-" : "";
+	double yAbs = Math.abs(this.y);
+	String xStr = nf.format(xAbs).replaceFirst("E", "*10^(") + ")";
+	String yStr = nf.format(yAbs).replaceFirst("E", "*10^(") + ")";
+
+	return "(" + xSign + xStr + ";" + ySign + yStr + ")";
+    }
+
+    public final boolean equals(Point2 p) {
+	if (this.x == p.x && this.y == p.y) {
+	    return true;
+	}
+	return false;
     }
 }

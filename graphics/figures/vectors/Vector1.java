@@ -217,8 +217,6 @@ public class Vector1 {
      */
     @Override
     public String toString() {
-
 	return "[" + this.p1.toString() + ";" + this.p2.toString() + "]";
     }
-
 }
